@@ -112,7 +112,7 @@ if (cli.input.length < 2) {
     process.exit(1);
   }
   // The ngrok npm package parlance uses "addr" instead of "port".
-  opts.addr = port;
+  opts.addr = '192.168.5.101'+ port;
 }
 
 // Graft in secrets from .env file to pass to ngrok, if present.
