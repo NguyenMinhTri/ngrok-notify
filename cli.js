@@ -90,8 +90,6 @@ const config = yaml.safeLoad(
   fs.readFileSync(path.join(cwd, 'config.yml'), 'utf8')
 );
 
-const opts = config.ngrok || {};
-
 if (cli.input.length < 2) {
   cli.showHelp();
 } else {
@@ -104,17 +102,12 @@ if (cli.input.length < 2) {
   const PORT_MIN = 0;
   const PORT_MAX = 65535;
 
-  const port = parseInt(strPort, 10);
-  if (!isIntegerInRange(port, PORT_MIN, PORT_MAX)) {
-    console.log(
-      `Expected an integer for 'port' between ${PORT_MIN} and ${PORT_MAX} and received: ${strPort}`
-    );
-    process.exit(1);
-  }
-  // The ngrok npm package parlance uses "addr" instead of "port".
-  opts.addr = '192.168.5.101'+ port;
-}
+  const port = strPort;
 
+  console.log(`Connected to address: ${port} `);
+  // The ngrok npm package parlance uses "addr" instead of "port".
+  opts.addr =port;
+}
 // Graft in secrets from .env file to pass to ngrok, if present.
 const auth = process.env.NGROK_AUTH;
 if (auth) opts.auth = auth;
